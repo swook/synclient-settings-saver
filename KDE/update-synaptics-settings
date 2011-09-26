@@ -7,7 +7,7 @@
 #
 # Run after changing settings via `synclient`
 
-SYNFILE=$HOME/.kde/Autostart/synaptics-settings
+SYNFILE=$HOME/.kde/Autostart/apply-synclient-settings
 TMPFILE="synclient.out"
 
 # Change directory to tmp
