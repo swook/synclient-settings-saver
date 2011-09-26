@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+#   Synclient settings saver
+#
+# - Author: Seon Wook Park
+# - Date: 26th Sept 2011
+#
+# Run after changing settings via `synclient`
+
+SYNFILE=$HOME/.kde/Autostart/synaptics-settings
+TMPFILE="synclient.out"
+
+# Change directory to tmp
+cd "/tmp/kde-"$USER
+
+# Remove synclient updating file if it exists
+if [ -e $SYNFILE ]; then
+	rm $SYNFILE
+fi
+
+# Add bash header to new file
+echo "#!/bin/bash" >> $SYNFILE
+
+# Grab output from synclient
+echo "Grabbing current settings from synclient..."
+synclient -l > $TMPFILE
+
+# Parse synclient output
+echo "Parsing settings..."
+while read line; do
+	if [[ $line =~ ([[:alpha:]]+)[[:space:]]*=[[:space:]]*([0-9\.]+) ]]; then
+		echo "synclient "${BASH_REMATCH[1]}"="${BASH_REMATCH[2]} >> $SYNFILE
+	fi
+done < $TMPFILE
+rm $TMPFILE
+
+# Make output file executable by KDE
+chmod +x $SYNFILE
+
+echo "Startup script created in "$SYNFILE
