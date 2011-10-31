@@ -9,19 +9,14 @@
 
 APPNAME="apply-synclient-settings"
 TMPFILE=".synclient.out"
+TMPFOLDER="/tmp"
+SYNFILE=$HOME"/.config/"$APPNAME".sh"
 
 # Check if synclient is accessible
 if [[ `command -v synclient` == '' ]]; then
 	echo "Error: synclient is not installed"
 	exit
 fi
-
-if [[ $DESKTOP_SESSION == "akde-plasma" ]]; then
-	TMPFOLDER="/tmp/kde-"$USER
-else
-	TMPFOLDER="/tmp"
-fi
-SYNFILE=$HOME"/.config/"$APPNAME".sh"
 
 # Change directory to tmp
 cd $TMPFOLDER
