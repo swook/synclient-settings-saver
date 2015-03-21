@@ -36,7 +36,7 @@ synclient -l > $TMPFILE
 # Parse synclient output
 echo "Parsing settings..."
 while read line; do
-	if [[ $line =~ ([[:alpha:]]+)[[:space:]]*=[[:space:]]*([0-9\.]+) ]]; then
+	if [[ $line =~ ([[:alnum:]]+)[[:space:]]*=[[:space:]]*([0-9\.]+) ]]; then
 		echo "synclient "${BASH_REMATCH[1]}"="${BASH_REMATCH[2]} >> $SYNFILE
 		echo "	"${BASH_REMATCH[1]}"="${BASH_REMATCH[2]}
 	fi
